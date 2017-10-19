@@ -1,13 +1,11 @@
 package com.sh.game.lanyue;
 
-import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
@@ -31,34 +29,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initConfig();
+        initView();
+        initX5();
+    }
+
+    /**
+     * 初始化相关配置
+     */
+    private void initConfig() {
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        initView();
     }
 
+
     private void initView() {
-        tbsContent = (com.tencent.smtt.sdk.WebView)findViewById(R.id.tbsContent);
+        tbsContent = (com.tencent.smtt.sdk.WebView) findViewById(R.id.tbsContent);
+    }
+
+    /**
+     * 初始化X5内核（要求设备装有QQ或者微信）
+     */
+    private void initX5() {
         tbsContent.loadUrl(url);
         WebSettings webSettings = tbsContent.getSettings();
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setJavaScriptEnabled(true);
         tbsContent.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
-            }
-
-            @Override
-            public void onPageStarted(WebView webView, String s, Bitmap bitmap) {
-                Toast.makeText(MainActivity.this,"开始加载",Toast.LENGTH_SHORT).show();
-                super.onPageStarted(webView, s, bitmap);
-            }
-
-            @Override
-            public void onPageFinished(WebView webView, String s) {
-                Toast.makeText(MainActivity.this,"加载结束",Toast.LENGTH_SHORT).show();
-                super.onPageFinished(webView, s);
             }
         });
     }
@@ -71,7 +72,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
 
 }
