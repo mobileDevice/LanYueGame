@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     com.tencent.smtt.sdk.WebView tbsContent;
     private String url = "http://106.75.29.38:8183/youxitest.php";
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
-
 
     private void initView() {
         tbsContent = (com.tencent.smtt.sdk.WebView) findViewById(R.id.tbsContent);
